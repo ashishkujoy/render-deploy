@@ -1,4 +1,4 @@
-name: 'Deploy To Render'
+name: 'Render CI Deploy'
 description: 'This action deploy the application to Render'
 inputs:
   service-id:
@@ -16,11 +16,6 @@ inputs:
   delay-in-ms:
     description: 'Delay in ms to wait for before checking deployment status'
     default: 2000
-outputs:
-  commitId: # id of output
-    description: 'Id of commit which got deployed'
-  deploymentId:
-    description: 'Id of deployment created'  
 runs:
   using: 'node20'
   main: 'dist/index.js'

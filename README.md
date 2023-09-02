@@ -8,7 +8,7 @@ https://api.render.com/deploy/{SERVICE_ID}?key={SERVICE_KEY}
 
 ```yml
  - name: Deploy and wait
-      uses: ashishkujoy/render-deploy@v0.0.1
+      uses: ashishkujoy/render-ci-deploy@v1.0.1
       with:
         service-id: ${{ secrets.SERVICE_ID }}
         service-key: ${{ secrets.SERVICE_KEY }}
