@@ -1,0 +1,26 @@
+name: 'Deploy To Render'
+description: 'This action deploy the application to Render'
+inputs:
+  service-id:
+    description: 'Id of service'
+    required: true
+  service-key:
+    description: 'Service Key'
+    required: true  
+  api-key:
+    description: 'Render API key to check status of application'
+    required: true
+  max-deployment-wait-ms:
+    description: 'Max time in milliseconds to wait for deployment to succeed'
+    default: 120000  
+  delay-in-ms:
+    description: 'Delay in ms to wait for before checking deployment status'
+    default: 2000
+outputs:
+  commitId: # id of output
+    description: 'Id of commit which got deployed'
+  deploymentId:
+    description: 'Id of deployment created'  
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
