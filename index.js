@@ -28,6 +28,20 @@ const getConfig = () => {
   };
 }
 
+const jobCompletionStatus = ['live', 'deactivated', 'build_failed', 'update_failed', 'canceled']
+
+const handleDeploymentStatus = (status) => {
+  if (!jobCompletionStatus.includes(status)) {
+    return { shouldConitune: true };
+  }
+
+  if (status !== 'live') {
+    core.setFailed(`Failed to deploy, deployment status: ${status}`);
+  }
+
+  return { shouldContinue: false };
+}
+
 const awaitDeployment = async (config, deploymentId) => {
   const startedAt = new Date().getTime();
   core.startGroup('Deployment Status');
@@ -40,7 +54,7 @@ const awaitDeployment = async (config, deploymentId) => {
     }
     const deploymentStatus = await checkDeploymentStatus(config.serviceId, deploymentId, config.apiKey);
     core.info(`${new Date()} Deployment Status: ${deploymentStatus.status}`);
-    return deploymentStatus.status !== 'live';
+    return handleDeploymentStatus(deploymentStatus.status).shouldConitune;
   }, config.delay);
 
   core.endGroup('Deployment Status');
