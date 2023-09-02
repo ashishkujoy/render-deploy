@@ -9894,7 +9894,7 @@ const awaitDeployment = async (config, deploymentId) => {
       return false;
     }
     const deploymentStatus = await checkDeploymentStatus(config.serviceId, deploymentId, config.apiKey);
-    core.debug(`${new Date()} Deployment Status: ${deploymentStatus.status}`);
+    core.info(`${new Date()} Deployment Status: ${deploymentStatus.status}`);
     return deploymentStatus.status !== 'live';
   }, config.delay);
 
@@ -9905,11 +9905,11 @@ const logCommitDetails = (commitDetails) => {
   const headCommit = commitDetails.head_commit;
 
   core.startGroup('Deployment Details');
-  core.debug(`Id: ${headCommit.id} , Message: ${headCommit.message}`);
+  core.info(`Id: ${headCommit.id} , Message: ${headCommit.message}`);
 
   core.startGroup('All Commit deployed');
   commitDetails.commits.forEach(commit => {
-    core.debug(`Id: ${commit.id} , Message: ${commit.message}`);
+    core.info(`Id: ${commit.id} , Message: ${commit.message}`);
   });
   core.endGroup('All Commit deployed');
 
@@ -9923,7 +9923,7 @@ const deployAndVerifyStatus = async () => {
     logCommitDetails(github.context.payload);
 
     const deploymentId = await triggerDeployment(config.serviceId, config.serviceKey, id);
-    core.debug('Deployment Id: ' + deploymentId);
+    core.info('Deployment Id: ' + deploymentId);
 
     await awaitDeployment(config, deploymentId);
 
