@@ -9894,7 +9894,7 @@ const awaitDeployment = async (config, deploymentId) => {
       return false;
     }
     const deploymentStatus = await checkDeploymentStatus(config.serviceId, deploymentId, config.apiKey);
-    core.debu(`${new Date()} Deployment Status: ${deploymentStatus.status}`);
+    core.debug(`${new Date()} Deployment Status: ${deploymentStatus.status}`);
     return deploymentStatus.status !== 'live';
   }, config.delay);
 
